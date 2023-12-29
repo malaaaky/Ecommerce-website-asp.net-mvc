@@ -40,17 +40,17 @@ namespace eTickets.Controllers
         }
 
         //Get: Actors/Details/1
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int ID)
         {
-            var actorDetails = await _service.GetByIdAsync(id);
+            var actorDetails = await _service.GetByIdAsync(ID);
             if (actorDetails == null) return View("NotFound");
             return View(actorDetails);
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int ID)
         {
 
-            var actorDetails = await _service.GetByIdAsync(id);
+            var actorDetails = await _service.GetByIdAsync(ID);
             if (actorDetails == null) return View("NotFound");
 
             return View(actorDetails);
@@ -66,21 +66,21 @@ namespace eTickets.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int ID)
         {
 
-            var actorDetails = await _service.GetByIdAsync(id);
+            var actorDetails = await _service.GetByIdAsync(ID);
             if (actorDetails == null) return View("NotFound");
 
             return View(actorDetails);
         }
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int ID)
         {
-            var actorDetails = await _service.GetByIdAsync(id);
+            var actorDetails = await _service.GetByIdAsync(ID);
             if (actorDetails == null) return View("NotFound");
 
-            await _service.DeleteAsync(id);
+            await _service.DeleteAsync(ID);
             return RedirectToAction(nameof(Index));
         }
 
