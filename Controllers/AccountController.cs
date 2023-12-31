@@ -59,8 +59,7 @@ namespace eTickets.Controllers
             TempData["Error"] = "Wrong credentials. Please, try again!";
             return View(loginVM);
         }
-        
-        public IActionResult Register => View (new RegisterVM());
+
 
         public IActionResult Register() => View(new RegisterVM());
 
@@ -90,6 +89,12 @@ namespace eTickets.Controllers
             return View("RegisterCompleted");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Movies");
+        }
 
         public IActionResult AccessDenied(string ReturnUrl)
         {
