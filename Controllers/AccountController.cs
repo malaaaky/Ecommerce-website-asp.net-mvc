@@ -60,12 +60,6 @@ namespace eTickets.Controllers
             return View(loginVM);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Movies");
-        }
 
         public IActionResult Register() => View(new RegisterVM());
 
@@ -95,6 +89,12 @@ namespace eTickets.Controllers
             return View("RegisterCompleted");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Movies");
+        }
 
         public IActionResult AccessDenied(string ReturnUrl)
         {
