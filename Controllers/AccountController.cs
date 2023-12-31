@@ -32,6 +32,12 @@ namespace eTickets.Controllers
             return View(users);
         }
 
+        public async Task<IActionResult> Users()
+        {
+            var users = await _context.Users.ToListAsync();
+            return View(users);
+        }
+
 
         public IActionResult Login() => View(new LoginVM());
 
@@ -59,8 +65,44 @@ namespace eTickets.Controllers
             TempData["Error"] = "Wrong credentials. Please, try again!";
             return View(loginVM);
         }
+        
+        public IActionResult Register => View (new RegisterVM());
 
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterVM)
+        {
+            if (!ModelState.IsValid) return View(registerVM)
 
+            var user = await _userManager.FindByEmailAsync(registerVM.EmailAddress);
+            if(user != null)
+            {
+                TempData["Error"] = "This email address is already in use";
+                return View(RegisterVM)
+            }
+
+            var newUser = new ApplicationUser()
+            {
+                FullName = registerVM.FullName,
+                Email = registerVM.EmailAddress,
+                UserName = registerVM.EmailAddress
+            };
+            var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
+
+            if (newUserResponse.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(newUser, UserRoles.User);
+            }
+
+            return View("RegisterCompleted")
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Movies");
+        }
 
 
 
