@@ -59,13 +59,8 @@ namespace eTickets.Controllers
             TempData["Error"] = "Wrong credentials. Please, try again!";
             return View(loginVM);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Movies");
-        }
+        
+        public IActionResult Register => View (new RegisterVM());
 
         public IActionResult Register() => View(new RegisterVM());
 
