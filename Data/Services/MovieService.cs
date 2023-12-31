@@ -47,13 +47,13 @@ namespace eTickets.Data.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Movie> GetMovieByIdAsync(int id)
+        public async Task<Movie> GetMovieByIdAsync(int ID)
         {
             var movieDetails = await _context.Movies
                 .Include(c => c.Cinema)
                 .Include(p => p.Producer)
                 .Include(am => am.Actors_Movies).ThenInclude(a => a.Actor)
-                .FirstOrDefaultAsync(n => n.ID == id);
+                .FirstOrDefaultAsync(n => n.ID == ID);
 
             return movieDetails;
         }

@@ -62,7 +62,7 @@ namespace eTickets.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Logo,Name,Description")] Cinema cinema)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Logo,Name,Description")] Cinema cinema)
         {
             if (!ModelState.IsValid) return View(cinema);
             await _service.UpdateAsync(id, cinema);
