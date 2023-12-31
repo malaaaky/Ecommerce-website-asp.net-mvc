@@ -106,32 +106,32 @@ namespace eTickets.Data
                         {
                             FullName = "Producer 1",
                             Bio = "This is the Bio of the first actor",
-                            ProfilePictureURl = "http://dotnethow.net/images/producers/producer-1.jpeg"
+                            ProfilePictureURL = "http://dotnethow.net/images/producers/producer-1.jpeg"
 
                         },
                         new Producer()
                         {
                             FullName = "Producer 2",
                             Bio = "This is the Bio of the second actor",
-                            ProfilePictureURl = "http://dotnethow.net/images/producers/producer-2.jpeg"
+                            ProfilePictureURL = "http://dotnethow.net/images/producers/producer-2.jpeg"
                         },
                         new Producer()
                         {
                             FullName = "Producer 3",
                             Bio = "This is the Bio of the second actor",
-                            ProfilePictureURl = "http://dotnethow.net/images/producers/producer-3.jpeg"
+                            ProfilePictureURL = "http://dotnethow.net/images/producers/producer-3.jpeg"
                         },
                         new Producer()
                         {
                             FullName = "Producer 4",
                             Bio = "This is the Bio of the second actor",
-                            ProfilePictureURl = "http://dotnethow.net/images/producers/producer-4.jpeg"
+                            ProfilePictureURL = "http://dotnethow.net/images/producers/producer-4.jpeg"
                         },
                         new Producer()
                         {
                             FullName = "Producer 5",
                             Bio = "This is the Bio of the second actor",
-                            ProfilePictureURl = "http://dotnethow.net/images/producers/producer-5.jpeg"
+                            ProfilePictureURL = "http://dotnethow.net/images/producers/producer-5.jpeg"
                         }
                     }) ;
                     context.SaveChanges();
