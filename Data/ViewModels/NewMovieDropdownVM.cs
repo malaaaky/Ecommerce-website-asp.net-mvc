@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace eTickets.Data.ViewModels
 {
-    public class NewMovieDropdownVM
+    public class NewMovieDropdownsVM
     {
-        public NewMovieDropdownVM()
+        public NewMovieDropdownsVM()
         {
             Producers = new List<Producer>();
             Cinemas = new List<Cinema>();

@@ -9,11 +9,10 @@ using System.Threading.Tasks;
 
 namespace eTickets.Data.Services
 {
-    public class MovieServers : EntityBaseRepository<Movie>, IMoviesServers
+    public class MoviesService : EntityBaseRepository<Movie>, IMoviesService
     {
         private readonly AppDbContext _context;
-
-        public MovieServers(AppDbContext context):base(context)
+        public MoviesService(AppDbContext context) : base(context)
         {
             _context = context;
         }
@@ -35,7 +34,8 @@ namespace eTickets.Data.Services
             await _context.Movies.AddAsync(newMovie);
             await _context.SaveChangesAsync();
 
-            foreach(var actorId in data.ActorIds)
+            //Add Movie Actors
+            foreach (var actorId in data.ActorIds)
             {
                 var newActorMovie = new Actor_Movie()
                 {
@@ -47,20 +47,20 @@ namespace eTickets.Data.Services
             await _context.SaveChangesAsync();
         }
 
-        public Task<Movie> GetMovieIdAsync(int ID)
+        public async Task<Movie> GetMovieByIdAsync(int id)
         {
-            var movieDetails = _context.Movies
+            var movieDetails = await _context.Movies
                 .Include(c => c.Cinema)
                 .Include(p => p.Producer)
                 .Include(am => am.Actors_Movies).ThenInclude(a => a.Actor)
-                .FirstOrDefaultAsync(n => n.ID == ID);
+                .FirstOrDefaultAsync(n => n.ID == id);
 
             return movieDetails;
         }
 
-        public async Task<NewMovieDropdownVM> GetNewMovieDropdownsValues()
+        public async Task<NewMovieDropdownsVM> GetNewMovieDropdownsValues()
         {
-            var response = new NewMovieDropdownVM()
+            var response = new NewMovieDropdownsVM()
             {
                 Actors = await _context.Actors.OrderBy(n => n.FullName).ToListAsync(),
                 Cinemas = await _context.Cinemas.OrderBy(n => n.Name).ToListAsync(),
@@ -74,7 +74,7 @@ namespace eTickets.Data.Services
         {
             var dbMovie = await _context.Movies.FirstOrDefaultAsync(n => n.ID == data.ID);
 
-            if(dbMovie != null)
+            if (dbMovie != null)
             {
                 dbMovie.Name = data.Name;
                 dbMovie.Description = data.Description;
@@ -93,6 +93,7 @@ namespace eTickets.Data.Services
             _context.Actors_Movies.RemoveRange(existingActorsDb);
             await _context.SaveChangesAsync();
 
+            //Add Movie Actors
             foreach (var actorId in data.ActorIds)
             {
                 var newActorMovie = new Actor_Movie()
